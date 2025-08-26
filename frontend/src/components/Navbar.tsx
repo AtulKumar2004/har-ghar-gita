@@ -5,7 +5,6 @@ import {
     Instagram,
     Youtube,
     Menu,
-    LogIn,
     X,
 } from "lucide-react";
 
