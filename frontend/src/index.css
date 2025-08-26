@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+body {
+  font-family: 'Quicksand', sans-serif;
+}
+
+.gradient-btn {
+  background: linear-gradient(90deg, #6BCB77, #FFD166, #EF476F);
+  background-size: 300% 300%;
+  transition: background-position 0.7s ease-in-out;
+}
+
+.gradient-btn:hover {
+  background-position: right center;
+}
