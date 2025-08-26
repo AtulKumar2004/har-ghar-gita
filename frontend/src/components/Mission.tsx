@@ -13,29 +13,16 @@ const Mission = () => {
                     background: "linear-gradient(360deg, #2d6a4f, #40916c, #d4a373)",
                 }}
             >
-                {/* Decorative Mandala Background */}
-                <div
-                    className="absolute inset-0 flex justify-center items-center opacity-20"
-                    style={{
-                        backgroundImage: "url('/mandala.png')", // put your mandala SVG/PNG in public/
-                        backgroundRepeat: "no-repeat",
-                        backgroundPosition: "center",
-                        backgroundSize: "60%",
-                    }}
-                ></div>
-
                 {/* Text Content */}
                 <div className="relative z-10 max-w-3xl">
-                    <h3 className="text-xl font-medium tracking-wide text-[#2c2c2c]">
-                        Hub of A Spiritual Sanctuary
-                    </h3>
-                    <h2 className="text-5xl font-serif mt-4 mb-6 text-[#2c2c2c]">
-                        Recent VIP Guests
-                    </h2>
-                    <p className="text-gray-700 text-lg leading-relaxed">
-                        ISKCON London is a dynamic place in the heart of London where the senior devotees
-                        visit regularly. Don’t miss the chance to gain wisdom from these revered figures.
-                        Keep an eye on our schedule page for updates on upcoming visitors.
+                    <div className="flex flex-col gap-2 items-center pb-3">
+                        <h2 className="font-bold text-2xl tracking-wide text-[#2c2c2c]">
+                            Our Mission
+                        </h2>
+                        <hr className="h-1 rounded-xl bg-blue-600 border-0 w-30" />
+                    </div>
+                    <p className="text-black font-semibold text-lg leading-relaxed">
+                        Our mission is to spread unadulterated teachings of Lord Krishna all over the world. So that all of us can lead a Krishna conscious life and ultimately attain love of Krishna.The purpose of human form of life is to establish relationship with Krishna and return back to the kingdom of Krishna. This is the panacea for all material sufferings. And this is the ultimate perfection of life.
                     </p>
                 </div>
             </section>
