@@ -2,12 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import {
     Facebook,
-    Twitter,
     Instagram,
     Youtube,
-    MessageCircle,
-    Home,
-    Search,
     Menu,
     LogIn,
     X,
@@ -15,7 +11,6 @@ import {
 
 // Theme colors (tweak to taste)
 const BG = "#2b1630"; // deep plum
-const BG2 = "#3a2140"; // gradient secondary
 const ACCENT = "#d9a85a"; // warm gold
 // const ACCENT_DEEP = "#b78643";
 
