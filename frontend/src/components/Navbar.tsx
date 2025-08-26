@@ -104,7 +104,7 @@ export default function Navbar({ className = "" }: NavbarProps) {
                 role="navigation"
                 aria-label="Primary"
                 style={{
-                    background: "linear-gradient(90deg, #6BCB77, #FFD166, #EF476F)"
+                    background: "linear-gradient(90deg, #228B22, #FFA500)"
                 }}
             >
                 <div className="mx-auto flex max-w-7xl items-center justify-between text-black px-4 py-3 md:px-6">
@@ -124,11 +124,6 @@ export default function Navbar({ className = "" }: NavbarProps) {
                     <div className="flex items-center gap-3 md:gap-4 font-bold text-white">
                         <Pill href="#" className="hidden sm:inline-flex border-[--accent] text-[--accent] hover:bg-[--accent] hover:text-[--bg]">REGISTER</Pill>
 
-                        <div className="hidden sm:inline-flex">
-                            <IconBtn as="a" href="#" label="Login" className="">
-                                <LogIn />
-                            </IconBtn>
-                        </div>
 
                         {/* menu button visible on all sizes, but changes layout */}
                         <IconBtn as="button" label="Menu" onClick={openMenu} className="h-9 w-9 cursor-pointer">

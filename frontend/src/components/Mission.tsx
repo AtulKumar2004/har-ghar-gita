@@ -9,20 +9,20 @@ const Mission = () => {
         >
             <section
                 className="relative flex flex-col items-center justify-center text-center py-20 px-6"
-                style={{
-                    background: "linear-gradient(360deg, #2d6a4f, #40916c, #d4a373)",
-                }}
+                // style={{
+                //     background: "linear-gradient(360deg, #2d6a4f, #40916c, #d4a373)",
+                // }}
             >
                 {/* Text Content */}
                 <div className="relative z-10 max-w-3xl">
                     <div className="flex flex-col gap-2 items-center pb-3">
-                        <h2 className="font-bold text-2xl tracking-wide text-[#2c2c2c]">
+                        <h2 className="font-bold text-2xl tracking-wide bg-gradient-to-r from-black via-blue-900 to-blue-700 bg-clip-text text-transparent">
                             Our Mission
                         </h2>
                         <hr className="h-1 rounded-xl bg-blue-600 border-0 w-30" />
                     </div>
                     <p className="text-black font-semibold text-lg leading-relaxed">
-                        Our mission is to spread unadulterated teachings of Lord Krishna all over the world. So that all of us can lead a Krishna conscious life and ultimately attain love of Krishna.The purpose of human form of life is to establish relationship with Krishna and return back to the kingdom of Krishna. This is the panacea for all material sufferings. And this is the ultimate perfection of life.
+                        Our mission is to complete study of all Srila Prabhupada books and spread unadulterated teachings of Lord Krishna all over the world. So that all of us can lead a Krishna conscious life and ultimately attain love of Krishna.The purpose of human form of life is to establish relationship with Krishna and return back to the kingdom of Krishna. This is the panacea for all material sufferings and this is the ultimate perfection of life.
                     </p>
                 </div>
             </section>
