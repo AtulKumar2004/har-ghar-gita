@@ -56,7 +56,9 @@ const Carousel: React.FC = () => {
           <p className="mt-4 text-lg md:text-xl text-white drop-shadow-md">
             {hero.description}
           </p>
-          <button className="mt-6 gradient-btn px-6 py-3 text-black/80 font-semibold rounded-lg shadow-lg overflow-hidden group cursor-pointer">
+          <button onClick={() => {
+            document.getElementById("set-yourself")?.scrollIntoView({ behavior: "smooth" });
+          }} className="mt-6 gradient-btn px-6 py-3 text-black/80 font-semibold rounded-lg shadow-lg overflow-hidden group cursor-pointer">
             <span className="relative">{hero.buttonText}</span>
           </button>
         </div>
