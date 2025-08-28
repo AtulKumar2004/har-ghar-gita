@@ -20,16 +20,21 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     const user = await User.findOne({ email });
-    if (user) {
-      return res.status(400).json({ message: "Email already exists" });
-    }
+    const phoneNo = await User.findOne({ phone });
+    if (user) return res.status(400).json({ message: "This user has already registered!" });
+    if (phoneNo) return res.status(400).json({ message: "This user has already registered!" });
 
-    const newUser = new User({ name, email, dob, phone });
+    const newUser = new User({
+      name: name,
+      email: email,
+      dob: dob,
+      phone: phone
+    });
     await newUser.save();
 
     return res.status(201).json(newUser);
-  } catch (error: any) {
-    console.error("Error in signup controller:", error.message);
+  } catch (error) {
+    console.error("Error in signup controller:", (error as Error).message);
     return res.status(500).json({ message: "Internal Server Error" });
   }
 }

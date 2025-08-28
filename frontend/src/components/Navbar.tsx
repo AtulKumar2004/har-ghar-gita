@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, MotionValue } from "framer-motion";
 import {
     Facebook,
     Instagram,
@@ -7,14 +7,11 @@ import {
     Menu,
     X,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 // Theme colors (tweak to taste)
 const BG = "#2b1630"; // deep plum
 const ACCENT = "#d9a85a"; // warm gold
-// const ACCENT_DEEP = "#b78643";
-
-// Use Framer Motion's anchor props to avoid TS drag signature conflicts
-type PillProps = React.ComponentPropsWithoutRef<typeof motion.a>;
 
 const IconBtn: React.FC<{
     as?: "a" | "button";
@@ -40,18 +37,6 @@ const IconBtn: React.FC<{
     );
 };
 
-const Pill: React.FC<PillProps> = ({ children, className = "", ...rest }) => (
-    <motion.a
-        whileHover={{ y: -2 }}
-        whileTap={{ scale: 0.985 }}
-        className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm tracking-[0.18em] uppercase transition-colors ${className}`}
-        style={{ ['--accent' as any]: ACCENT, ['--bg' as any]: BG }}
-        {...rest}
-    >
-        {children}
-    </motion.a>
-);
-
 export type NavbarProps = {
     className?: string;
 };
@@ -62,6 +47,8 @@ export default function Navbar({ className = "" }: NavbarProps) {
     const openMenu = () => setOpen(true);
     const sidebarRef = useRef<HTMLDivElement | null>(null);
     const firstFocusableRef = useRef<HTMLButtonElement | null>(null);
+    const { scrollYProgress } = useScroll();
+
 
     // Lock body scroll while open
     useEffect(() => {
@@ -99,30 +86,36 @@ export default function Navbar({ className = "" }: NavbarProps) {
     return (
         <>
             <nav
-                className={`sticky top-0 z-50 w-full border-b border-white/5 backdrop-blur supports-[backdrop-filter]:bg-[rgba(43,32,51,0.6)] ${className}`}
+                className={`sticky top-0 z-59 w-full bg-gradient-to-r from-[#fa932d] to-[#fcf047] ${className}`}
                 role="navigation"
                 aria-label="Primary"
-                style={{
-                    background: "linear-gradient(90deg, #228B22, #FFA500)"
-                }}
             >
                 <div className="mx-auto flex max-w-7xl items-center justify-between text-black px-4 py-3 md:px-6">
                     {/* Left cluster */}
 
 
                     {/* Center cluster: logo/home */}
-                    <div className="hidden md:flex items-center gap-6 cursor-pointer">
-                        <img src="/Logo.jpg" height={50} width={50} className="rounded-2xl" alt="" />
-                    </div>
+                    <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="hidden md:flex items-center gap-6 cursor-pointer">
+                        <img src="/Logum.png" height={50} width={50} alt="" />
+                    </Link>
 
                     <div className="flex items-center font-bold text-2xl text-slate-700 gap-3 md:gap-4">
                         #HarGharGita
                     </div>
 
                     {/* Right cluster */}
-                    <div className="flex items-center gap-3 md:gap-4 font-bold text-white">
-                        <Pill href="#" className="hidden sm:inline-flex border-[--accent] text-[--accent] hover:bg-[--accent] hover:text-[--bg]">REGISTER</Pill>
+                    <div className="flex items-center gap-3 md:gap-4 font-bold text-black">
 
+                        <Link to="/register">
+                            <motion.div
+                                whileHover={{ y: -2 }}
+                                whileTap={{ scale: 0.985 }}
+                                className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm"
+                                style={{ "--accent": "#d9a85a", "--bg": "#2b1630" } as React.CSSProperties}
+                            >
+                                Register
+                            </motion.div>
+                        </Link>
 
                         {/* menu button visible on all sizes, but changes layout */}
                         <IconBtn as="button" label="Menu" onClick={openMenu} className="h-9 w-9 cursor-pointer">
@@ -131,6 +124,13 @@ export default function Navbar({ className = "" }: NavbarProps) {
                     </div>
                 </div>
             </nav>
+
+            <motion.div
+                style={{
+                    scaleX: scrollYProgress as MotionValue<number>
+                }}
+                className="bg-red-500 w-full h-1 origin-left z-60 fixed left-0">
+            </motion.div>
 
             {/* Sidebar + overlay */}
             {open && (
@@ -166,9 +166,9 @@ export default function Navbar({ className = "" }: NavbarProps) {
 
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-3">
-                                <div className="h-10 w-10 rounded-lg bg-[--accent] flex items-center justify-center text-[--bg] font-bold">
-                                    <img src="/Logo.jpg" height={50} width={50} className="rounded-2xl" alt="" />
-                                </div>
+                                <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="h-10 w-10 rounded-lg bg-[--accent] flex items-center justify-center text-[--bg] font-bold">
+                                    <img src="/Logum.png" height={50} width={50} alt="Logo" />
+                                </Link>
                                 <div>
                                     <div className="font-semibold">#HarGharGita</div>
                                 </div>
@@ -186,25 +186,31 @@ export default function Navbar({ className = "" }: NavbarProps) {
                         </div>
 
                         <nav className="mt-6 flex flex-col gap-3">
-                            <a href="#" className="rounded-md px-3 py-2 hover:bg-white/5">Home</a>
-                            <a href="#" className="rounded-md px-3 py-2 hover:bg-white/5">About</a>
-                            <a href="#" className="rounded-md px-3 py-2 hover:bg-white/5">Programs</a>
-                            <a href="#" className="rounded-md px-3 py-2 hover:bg-white/5">Events</a>
-                            <a href="#" className="rounded-md px-3 py-2 hover:bg-white/5">Contact</a>
+                            <Link to="/" className="rounded-md px-3 py-2 hover:bg-white/5">Home</Link>
+                            <Link to="/about" className="rounded-md px-3 py-2 hover:bg-white/5">About</Link>
+                            <Link to="/contact" className="rounded-md px-3 py-2 hover:bg-white/5">Contact</Link>
                         </nav>
 
-                        <div className="mt-6">
-                            <Pill href="#" className="w-full justify-center border-[--accent] text-[--accent] hover:bg-[--accent] hover:text-[--bg]">REGISTER</Pill>
-                        </div>
+
+                        <Link to="/register">
+                            <motion.div
+                                whileHover={{ y: -2 }}
+                                whileTap={{ scale: 0.985 }}
+                                className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 my-5 text-sm"
+                                style={{ "--accent": "#d9a85a", "--bg": "#2b1630" } as React.CSSProperties}
+                            >
+                                Register
+                            </motion.div>
+                        </Link>
 
                         <div className="mt-6 flex gap-3">
-                            <IconBtn as="a" href="#" label="Facebook">
+                            <IconBtn as="a" href="https://www.facebook.com/p/Iskcon-Baranga-Patia-61575899008250/" label="Facebook">
                                 <Facebook />
                             </IconBtn>
-                            <IconBtn as="a" href="#" label="Instagram">
+                            <IconBtn as="a" href="https://www.instagram.com/iskconpatia/" label="Instagram">
                                 <Instagram />
                             </IconBtn>
-                            <IconBtn as="a" href="#" label="YouTube">
+                            <IconBtn as="a" href="https://www.youtube.com/@ISKCONPATIA/featured" label="YouTube">
                                 <Youtube />
                             </IconBtn>
                         </div>

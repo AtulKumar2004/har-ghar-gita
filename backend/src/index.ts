@@ -2,19 +2,28 @@ import express from "express";
 import dotenv from "dotenv";
 import { connectDB } from "./lib/db.js";
 import User from "./models/user.model.js";
+import cors from "cors";
 dotenv.config();
 
 const app = express();
 app.use(express.json());
 
-app.post("/register", async (req, res) => {
+app.use(cors({
+  origin: "http://localhost:5173",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
+
+app.post("/api/register", async (req, res) => {
   const { name, email, dob, phone } = req.body;
     try {
         if (!name || !email || !dob || !phone) {
             return res.status(400).json({ message: "Please provide all the fields" });
         }
         const user = await User.findOne({ email });
-        if (user) return res.status(400).json({ message: "Email already existed" });
+        const phoneNo = await User.findOne({ phone });
+        if (user) return res.status(400).json({ message: "This user has already registered!" });
+        if (phoneNo) return res.status(400).json({ message: "This user has already registered!" });
 
         const newUser = new User({
             name: name,

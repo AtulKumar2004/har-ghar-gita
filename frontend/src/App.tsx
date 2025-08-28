@@ -1,18 +1,20 @@
-import Hero from "./components/Hero"
-import Mission from "./components/Mission"
-import Navbar from "./components/Navbar"
-import PrabhupadaSection from "./components/PrabhupadaSection"
-import WhyJoinUs from "./components/WhyJoinUs"
-import './index.css'
+import { Routes, Route } from 'react-router-dom';
+import Register from "./pages/Register"
+import LandingPage from "./pages/LandingPage"
+import { Toaster } from 'react-hot-toast';
+import Contact from './pages/Contact';
+import About from './pages/About';
 function App() {
 
   return (
     <div>
-      <Navbar />
-      <Hero />
-      <Mission />
-      <WhyJoinUs />
-      <PrabhupadaSection />
+      <Toaster />
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
     </div>
   )
 }

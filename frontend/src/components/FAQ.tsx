@@ -30,7 +30,7 @@ const faqs: FAQItem[] = [
         id: "f4",
         question: "What benefits can I expect from the sessions?",
         answer:
-            "You will develop spiritual intelligence to know what is right what is wrong, what is the purpose of this human form of life, by developing the habit of reading Srila Prabhupada's books.This devotional knowledge is completely transcedental and can be taken up by any surrendered soul",
+            "You will develop spiritual intelligence to know what is right what is wrong, what is the purpose of this human form of life, by developing the habit of reading Srila Prabhupada's books.This devotional knowledge is completely transcendental and can be taken up by any surrendered soul",
     },
     {
         id: "f5",
@@ -59,7 +59,7 @@ const AccordionItem: React.FC<AccordionItemProps> = ({
 }) => {
     return (
         <div
-            className="border-b p-5 border-gray-200 hover:bg-yellow-200 cursor-pointer"
+            className="border-b p-5 border-gray-200 hover:bg-blue-300 cursor-pointer"
             onClick={onClick}
         >
             <div className="w-full flex justify-between items-center text-left font-semibold text-gray-800">
@@ -92,7 +92,7 @@ const FAQAccordion: React.FC = () => {
 
     return (
         <div className="flex justify-center items-center">
-            <div className="max-w-5xl mx-10 bg-yellow-100 shadow-md rounded-2xl my-6 p-6">
+            <div className="max-w-5xl mx-5 bg-blue-200 shadow-md rounded-2xl my-6 p-6">
                 <h2 className="text-xl font-bold text-center mb-6">
                     Frequently Asked Questions
                 </h2>

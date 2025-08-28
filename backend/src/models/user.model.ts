@@ -26,9 +26,9 @@ const userSchema = new Schema<UserDocument>({
     },
     phone: {
         type: Number,
-        required: true
+        required: true,
+        unique: true
     }
-    
 },{timestamps: true});
 
 const User = mongoose.model<UserDocument>("User",userSchema);

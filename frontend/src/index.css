@@ -2,7 +2,7 @@
 
 body {
   font-family: 'Quicksand', sans-serif;
-  background: linear-gradient(90deg, #d4a373, #40916c, #d4a373)
+  background: rgb(254, 251, 251)
 }
 
 .gradient-btn {
