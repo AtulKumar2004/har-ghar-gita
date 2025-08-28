@@ -4,6 +4,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 // import api from "../../lib/axios";
 import { z } from "zod";
+import { Loader2 } from "lucide-react";
 
 interface FormData {
     name: string;
@@ -23,9 +24,6 @@ export const userSchema = z.object({
         .regex(/^\d{10}$/, "Phone number must be 10 digits"),
 });
 
-export type UserFormData = z.infer<typeof userSchema>;
-
-
 const FloatingSymbol: React.FC<{ src: string; top: string; left: string; size: number }> = ({ src, top, left, size }) => (
     <motion.img
         src={src}
@@ -44,6 +42,7 @@ const UserForm: React.FC = () => {
         dob: "",
         phone: "",
     });
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement>
@@ -54,16 +53,21 @@ const UserForm: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const validation = userSchema.safeParse(formData);
-        if (!validation.success) {
-            const firstError = validation.error.issues[0].message;
-            toast.error(firstError);
+
+        // validate before setting loading
+        const result = userSchema.safeParse(formData);
+        if (!result.success) {
+            toast.error(result.error.issues[0].message);
             return;
         }
-        try {
-            const res = await axios.post("/api/register", formData);
 
+        setLoading(true);
+
+        try {
+            // const res = await axios.post(`${import.meta.env.VITE_API_URL}/register`, result.data);
+            const res = await axios.post("/api/register", formData);
             toast.success("Registration successful 🎉");
+            setFormData({ name: "", email: "", dob: "", phone: "" });
             console.log("User created:", res.data);
         } catch (error: any) {
             if (error.response) {
@@ -72,14 +76,8 @@ const UserForm: React.FC = () => {
                 toast.error("Something went wrong. Please try again.");
             }
         } finally {
-            setFormData({
-                name: "",
-                email: "",
-                dob: "",
-                phone: "",
-            })
+            setLoading(false);
         }
-        console.log("Form Data:", formData);
     };
 
     return (
@@ -159,9 +157,14 @@ const UserForm: React.FC = () => {
                 {/* Submit */}
                 <button
                     type="submit"
-                    className="w-full p-3 rounded-xl gradient-btn cursor-pointer"
+                    disabled={loading}
+                    className="w-full p-3 rounded-xl flex justify-center items-center gradient-btn cursor-pointer"
                 >
-                    Submit
+                    {loading ? (
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                    ) : (
+                        "Submit"
+                    )}
                 </button>
             </form>
         </div>
