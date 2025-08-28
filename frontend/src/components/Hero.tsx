@@ -43,7 +43,7 @@ const Carousel: React.FC = () => {
   }, [isWide]);
 
   if (!isWide) {
-    const hero = slides[0];
+    const hero = slides[2];
     return (
       <div
         className="relative w-full h-[600px] bg-cover bg-center flex justify-center items-center"
