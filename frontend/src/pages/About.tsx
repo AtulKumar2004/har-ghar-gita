@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Users, Target, Sparkles } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { Link } from "react-router-dom";
 
 const About: React.FC = () => {
   return (
@@ -27,7 +28,7 @@ const About: React.FC = () => {
           >
             International Society for Krishna Consciousness, also popularly known as the Hare Krishna movement is a spiritual society founded by His Divine Grace A.C. Bhaktivedanta Swami Prabhupada in July 1966 in New York. ISKCON belongs to the Gaudiya-Vaishnava sampradaya, a monotheistic tradition within Vedic culture. Today ISKCON comprises of more than 400 temples, 40 rural communities and over 100 vegetarian restaurants. It also conducts special projects throughout the world, such as “Food for Life”, the only free vegetarian relief program in the world.
 
-The aim of ISKCON is to acquaint all people of world with universal principles of self-realization and God consciousness so that they may derive the highest benefit of spiritual understanding, unity and peace. The Vedic literature recommend that in the present age of Kali-yuga the most effective means of achieving self-realization is always hear about, glorify, and remember the all-attractive Supreme Lord Sri Krishna. Therefore, it recommends the chanting of the Holy Names: Hare Krishna Hare Krishna Krishna Krishna Hare Hare / Hare Rama Hare Rama Rama Rama Hare Hare. This sublime chanting puts the chanter directly in touch with the Supreme Lord through the sound vibration of His Holy Name.
+            The aim of ISKCON is to acquaint all people of world with universal principles of self-realization and God consciousness so that they may derive the highest benefit of spiritual understanding, unity and peace. The Vedic literature recommend that in the present age of Kali-yuga the most effective means of achieving self-realization is always hear about, glorify, and remember the all-attractive Supreme Lord Sri Krishna. Therefore, it recommends the chanting of the Holy Names: Hare Krishna Hare Krishna Krishna Krishna Hare Hare / Hare Rama Hare Rama Rama Rama Hare Hare. This sublime chanting puts the chanter directly in touch with the Supreme Lord through the sound vibration of His Holy Name.
           </motion.p>
         </section>
 
@@ -41,11 +42,11 @@ The aim of ISKCON is to acquaint all people of world with universal principles o
             >
               <h2 className="text-3xl font-bold text-gray-900">The Guru Parampara</h2>
               <p className="mt-4 text-gray-600 leading-relaxed">
-                
 
-ISKCON follows the teachings of the Vedas and Vedic scriptures, including the Bhagavad-gita and Srimad Bhagavatam which teach Vaishnavism or devotion to God (Krishna) in His Supreme Personal aspect of Sri Sri Radha Krishna.
 
-These teachings are received through the preceptorial line known as the Brahma-Madhav-Gaudiya Vaishnava sampradaya. ISKCON is part of the disciplic succession which started with Lord Krishna Himself and continued with Srila Vyasadeva, Srila Madhavacharya, Sri Caitanya Mahaprabhu and in the present day His Divine Grace A. C. Bhaktivedanta Swami Prabhupada and his followers.
+                ISKCON follows the teachings of the Vedas and Vedic scriptures, including the Bhagavad-gita and Srimad Bhagavatam which teach Vaishnavism or devotion to God (Krishna) in His Supreme Personal aspect of Sri Sri Radha Krishna.
+
+                These teachings are received through the preceptorial line known as the Brahma-Madhav-Gaudiya Vaishnava sampradaya. ISKCON is part of the disciplic succession which started with Lord Krishna Himself and continued with Srila Vyasadeva, Srila Madhavacharya, Sri Caitanya Mahaprabhu and in the present day His Divine Grace A. C. Bhaktivedanta Swami Prabhupada and his followers.
               </p>
             </motion.div>
             <motion.img
@@ -108,13 +109,15 @@ These teachings are received through the preceptorial line known as the Brahma-M
           <p className="mt-4 text-lg">
             Register now and take the first step in completing this lifelong mission
           </p>
-          <motion.a
-            href="/register"
-            whileHover={{ scale: 1.05 }}
+
+          <Link
+            to="/register"
             className="mt-6 inline-block px-6 py-3 bg-white text-blue-600 font-semibold rounded-full shadow-md hover:bg-gray-100"
           >
-            Get Started
-          </motion.a>
+            <motion.div whileHover={{ scale: 1.05 }}>
+              Get Started
+            </motion.div>
+          </Link>
         </section>
       </div>
       <Footer />
