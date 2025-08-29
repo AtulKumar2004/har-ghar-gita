@@ -13,7 +13,6 @@ interface FormData {
     phone: string;
 }
 
-
 export const userSchema = z.object({
     name: z.string().min(1, "All fields are required"),
     email: z.string().email("Please enter a valid email"),

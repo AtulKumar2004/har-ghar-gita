@@ -12,8 +12,8 @@ const Footer: React.FC = () => {
                     <h2 className="text-xl font-bold mb-4">Links</h2>
                     <ul className="space-y-2 text-sm">
                         <li><Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="font-semibold hover:underline">Home</Link></li>
-                        <li><Link to="/about" className="font-semibold hover:underline">About Us</Link></li>
-                        <li><Link to="/contact" className="font-semibold hover:underline">Contact Us</Link></li>
+                        <li><Link to="/about" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="font-semibold hover:underline">About Us</Link></li>
+                        <li><Link to="/contact" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="font-semibold hover:underline">Contact Us</Link></li>
                     </ul>
                 </div>
 
@@ -35,7 +35,7 @@ const Footer: React.FC = () => {
 
                 {/* Right Section */}
                 <div className="text-sm md:text-right font-semibold lg:flex lg:flex-col lg:justify-center">
-                    <p className="mb-2">Made with ❤️ by ISKCON Patia</p>
+                    <p className="mb-2">Made with ❤️ by <span className="hover:underline"><a href="https://www.google.com/maps/place/ISKCON+Patia/@20.3566597,85.8243488,1414m/data=!3m1!1e3!4m6!3m5!1s0x3a1909abd700711b:0x5317e2321ccc3b03!8m2!3d20.3563076!4d85.8277391!16s%2Fg%2F11rr7q0s28?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D">ISKCON Patia</a></span></p>
                     <p className="mb-2">© {new Date().getFullYear()} ISKCON Patia. All rights reserved.</p>
                 </div>
             </div>
