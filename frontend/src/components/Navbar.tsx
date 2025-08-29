@@ -159,7 +159,7 @@ export default function Navbar({ className = "" }: NavbarProps) {
                         animate={{ x: 0 }}
                         exit={{ x: "-100%" }}
                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                        className="relative z-70 w-80 max-w-full bg-gradient-to-b from-[#2E4C3F] via-[#3B5F46] to-[#8C4A2F] p-6 text-white overflow-y-auto"
+                        className="relative z-70 w-80 max-w-full bg-gradient-to-b from-[#a8621b] to-[#13739f] p-6 text-white overflow-y-auto"
                         style={{ paddingTop: "1rem" }}
                     >
 
@@ -204,13 +204,13 @@ export default function Navbar({ className = "" }: NavbarProps) {
                         </Link>
 
                         <div className="mt-6 flex gap-3">
-                            <IconBtn as="a" href="https://www.facebook.com/p/Iskcon-Baranga-Patia-61575899008250/" label="Facebook">
+                            <IconBtn as="a" href="https://www.facebook.com/rsd.rns/" label="Facebook">
                                 <Facebook />
                             </IconBtn>
-                            <IconBtn as="a" href="https://www.instagram.com/iskconpatia/" label="Instagram">
+                            <IconBtn as="a" href="https://www.instagram.com/rsd.rns_24/" label="Instagram">
                                 <Instagram />
                             </IconBtn>
-                            <IconBtn as="a" href="https://www.youtube.com/@ISKCONPATIA/featured" label="YouTube">
+                            <IconBtn as="a" href="https://www.youtube.com/@roshan_kp" label="YouTube">
                                 <Youtube />
                             </IconBtn>
                         </div>

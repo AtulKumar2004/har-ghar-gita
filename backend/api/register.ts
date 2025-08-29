@@ -34,7 +34,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     return res.status(201).json(newUser);
   } catch (error) {
-    console.error("Error in signup controller:", (error as Error).message);
+    console.error("Error in register controller:", (error as Error).message);
     return res.status(500).json({ message: "Internal Server Error" });
   }
 }
+

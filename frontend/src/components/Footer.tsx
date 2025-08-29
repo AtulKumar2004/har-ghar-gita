@@ -21,13 +21,13 @@ const Footer: React.FC = () => {
                 <div className="flex flex-col items-start md:items-center lg:flex lg:flex-col lg:justify-center">
                     <h2 className="text-xl font-bold mb-4">Follow Us</h2>
                     <div className="flex space-x-4">
-                        <a href="https://www.facebook.com/p/Iskcon-Baranga-Patia-61575899008250/" aria-label="Facebook">
+                        <a href="https://www.facebook.com/rsd.rns/" aria-label="Facebook">
                             <Facebook className="w-6 h-6 hover:text-gray-200" />
                         </a>
-                        <a href="https://www.youtube.com/@ISKCONPATIA/featured" aria-label="Twitter">
+                        <a href="https://www.youtube.com/@roshan_kp" aria-label="Youtube">
                             <Youtube className="w-6 h-6 hover:text-gray-200" />
                         </a>
-                        <a href="https://www.instagram.com/iskconpatia/" aria-label="Instagram">
+                        <a href="https://www.instagram.com/rsd.rns_24/" aria-label="Instagram">
                             <Instagram className="w-6 h-6 hover:text-gray-200" />
                         </a>
                     </div>
@@ -35,7 +35,7 @@ const Footer: React.FC = () => {
 
                 {/* Right Section */}
                 <div className="text-sm md:text-right font-semibold lg:flex lg:flex-col lg:justify-center">
-                    <p className="mb-2">Made with ❤️ by <span className="hover:underline"><a href="https://www.google.com/maps/place/ISKCON+Patia/@20.3566597,85.8243488,1414m/data=!3m1!1e3!4m6!3m5!1s0x3a1909abd700711b:0x5317e2321ccc3b03!8m2!3d20.3563076!4d85.8277391!16s%2Fg%2F11rr7q0s28?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D">ISKCON Patia</a></span></p>
+                    <p className="mb-2">Made with ❤️ by <span className="underline"><a href="https://www.google.com/maps/place/ISKCON+Patia/@20.3566597,85.8243488,1414m/data=!3m1!1e3!4m6!3m5!1s0x3a1909abd700711b:0x5317e2321ccc3b03!8m2!3d20.3563076!4d85.8277391!16s%2Fg%2F11rr7q0s28?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D">ISKCON Patia</a></span></p>
                     <p className="mb-2">© {new Date().getFullYear()} ISKCON Patia. All rights reserved.</p>
                 </div>
             </div>

@@ -64,7 +64,7 @@ const UserForm: React.FC = () => {
 
         try {
             // const res = await axios.post(`${import.meta.env.VITE_API_URL}/register`, result.data);
-            const res = await axios.post("/api/register", formData);
+            const res = await axios.post("/api/register", result.data);
             toast.success("Registration successful 🎉");
             setFormData({ name: "", email: "", dob: "", phone: "" });
             console.log("User created:", res.data);

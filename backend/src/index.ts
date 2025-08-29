@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import { connectDB } from "./lib/db.js";
 import User from "./models/user.model.js";
 import cors from "cors";
+import Message from "./models/message.model.js";
 dotenv.config();
 
 const app = express();
@@ -46,7 +47,38 @@ app.post("/api/register", async (req, res) => {
             res.status(400).json({ message: "Invalid user data" });
         }
     } catch (error) {
-        console.log("Error in signup controller", (error as Error).message);
+        console.log("Error in register controller", (error as Error).message);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+});
+
+app.post("/api/contact", async (req, res) => {
+  const { name, email, message } = req.body;
+    try {
+        if (!name || !email || !message) {
+            return res.status(400).json({ message: "Please provide all the fields" });
+        }
+
+        const newMessage = new Message({
+            name: name,
+            email: email,
+            message: message
+        });
+
+        if (newMessage) {
+            await newMessage.save();
+
+            res.status(201).json({
+                _id: newMessage._id,
+                name: newMessage.name,
+                email: newMessage.email,
+                message: newMessage.message
+            });
+        } else {
+            res.status(400).json({ message: "Invalid message entry" });
+        }
+    } catch (error) {
+        console.log("Error in contact us controller", (error as Error).message);
         res.status(500).json({ message: "Internal Server Error" });
     }
 });
