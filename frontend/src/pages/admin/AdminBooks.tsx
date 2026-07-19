@@ -154,7 +154,7 @@ const AdminBooks = () => {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-gray-800 rounded-xl w-full max-w-md overflow-hidden">
+          <div className="bg-white dark:bg-gray-800 rounded-xl w-full max-w-md max-h-[95vh] flex flex-col shadow-2xl">
             <div className={`flex justify-between items-center p-6 border-b border-gray-100 dark:border-gray-700 ${modalType === 'delete' ? 'bg-red-50 dark:bg-red-900/20' : ''}`}>
               <h2 className={`text-xl font-bold ${modalType === 'delete' ? 'text-red-600 dark:text-red-400' : 'text-gray-800 dark:text-gray-100'}`}>
                 {modalType === 'delete' ? 'Delete Book' : currentBook._id ? 'Edit Book' : 'Create Book'}
@@ -187,7 +187,7 @@ const AdminBooks = () => {
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleSave} className="p-6 space-y-4">
+              <form onSubmit={handleSave} className="p-4 sm:p-6 space-y-4 overflow-y-auto flex-1">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Title *</label>
                   <input 
@@ -201,7 +201,7 @@ const AdminBooks = () => {
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Description</label>
                   <textarea 
-                    rows={4}
+                    rows={3}
                     value={currentBook.description}
                     onChange={e => setCurrentBook({...currentBook, description: e.target.value})}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-transparent text-gray-800 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
@@ -213,7 +213,7 @@ const AdminBooks = () => {
                   {/* Image Preview & Upload Container */}
                   <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 dark:border-gray-600 border-dashed rounded-xl relative overflow-hidden group hover:border-orange-500 transition-colors bg-gray-50 dark:bg-gray-700/50">
                     {currentBook.imageUrl ? (
-                      <div className="relative w-full h-48 flex items-center justify-center">
+                      <div className="relative w-full h-32 sm:h-40 flex items-center justify-center">
                         <img src={currentBook.imageUrl} alt="Preview" className="max-h-full max-w-full object-contain rounded-lg" />
                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg">
                           <button 
