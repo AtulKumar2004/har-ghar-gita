@@ -55,10 +55,14 @@ app.post("/api/register", async (req, res) => {
         if (newUser) {
             await newUser.save();
             
-            // Send async email in background
-            sendRegistrationEmail(newUser.email as string, newUser.name as string).catch(console.error);
-
             const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET || "fallback_secret", { expiresIn: '30d' });
+
+            // Await email so it completes before Vercel serverless shuts down
+            try {
+                await sendRegistrationEmail(newUser.email as string, newUser.name as string);
+            } catch (emailError) {
+                console.error("Registration email failed:", emailError);
+            }
 
             res.status(201).json({
                 _id: newUser._id,
@@ -144,8 +148,12 @@ app.post("/api/forgot-password", async (req, res) => {
     const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
     const resetUrl = `${frontendUrl}/reset-password/${resetToken}`;
     
-    // Do not await to prevent slow SMTP connections from hanging the response
-    sendPasswordResetEmail(user.email as string, user.name as string, resetUrl).catch(console.error);
+    // Await email so it completes before Vercel serverless shuts down
+    try {
+        await sendPasswordResetEmail(user.email as string, user.name as string, resetUrl);
+    } catch (emailError) {
+        console.error("Password reset email failed:", emailError);
+    }
     
     res.json({ message: "Password reset link sent to your email" });
   } catch (error) {
@@ -440,12 +448,17 @@ app.post("/api/tests/submit", protect, async (req, res) => {
     await submission.save();
     
     // Fetch user and chapter for email
+    // Await email so it completes before Vercel serverless shuts down
     const chapter = await Chapter.findById(chapterId);
     if (chapter) {
-      if (status === 'graded') {
-        sendTestGradedEmail(req.user.email, req.user.name, chapter.title, score, totalPoints).catch(console.error);
-      } else {
-        sendTestSubmittedEmail(req.user.email, req.user.name, chapter.title).catch(console.error);
+      try {
+        if (status === 'graded') {
+          await sendTestGradedEmail(req.user.email, req.user.name, chapter.title, score, totalPoints);
+        } else {
+          await sendTestSubmittedEmail(req.user.email, req.user.name, chapter.title);
+        }
+      } catch (emailError) {
+        console.error("Test email failed:", emailError);
       }
     }
 
@@ -508,10 +521,14 @@ app.put("/api/admin/tests/:id/grade", protect, admin, async (req, res) => {
     submission.status = 'graded';
     await submission.save();
 
-    // Send email asynchronously so it doesn't block the API response
+    // Await email so it completes before Vercel serverless shuts down
     const user = submission.userId as any;
     const chapter = submission.chapterId as any;
-    sendTestGradedEmail(user.email, user.name, chapter.title, newScore, submission.totalPoints).catch(console.error);
+    try {
+        await sendTestGradedEmail(user.email, user.name, chapter.title, newScore, submission.totalPoints);
+    } catch (emailError) {
+        console.error("Graded email failed:", emailError);
+    }
 
     res.status(200).json(submission);
   } catch (error) {
