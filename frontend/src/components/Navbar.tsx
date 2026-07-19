@@ -122,7 +122,7 @@ export default function Navbar({ className = "" }: NavbarProps) {
                                     <motion.div
                                         whileHover={{ y: -2 }}
                                         whileTap={{ scale: 0.985 }}
-                                        className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm"
+                                        className="hidden sm:inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm"
                                         style={{ "--accent": "#d9a85a", "--bg": "#2b1630" } as React.CSSProperties}
                                     >
                                         Dashboard
@@ -135,7 +135,7 @@ export default function Navbar({ className = "" }: NavbarProps) {
                                     <motion.div
                                         whileHover={{ y: -2 }}
                                         whileTap={{ scale: 0.985 }}
-                                        className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm hidden sm:inline-flex"
+                                        className="hidden sm:inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm"
                                         style={{ "--accent": "#d9a85a", "--bg": "#2b1630" } as React.CSSProperties}
                                     >
                                         Login
@@ -145,7 +145,7 @@ export default function Navbar({ className = "" }: NavbarProps) {
                                     <motion.div
                                         whileHover={{ y: -2 }}
                                         whileTap={{ scale: 0.985 }}
-                                        className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm"
+                                        className="hidden sm:inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm"
                                         style={{ "--accent": "#d9a85a", "--bg": "#2b1630", "backgroundColor": "#2b1630", "color": "#d9a85a" } as React.CSSProperties}
                                     >
                                         Register
