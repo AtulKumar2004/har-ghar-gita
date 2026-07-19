@@ -6,8 +6,12 @@ import {
     Youtube,
     Menu,
     X,
+    Sun,
+    Moon
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
 
 // Theme colors (tweak to taste)
 const BG = "#2b1630"; // deep plum
@@ -48,8 +52,8 @@ export default function Navbar({ className = "" }: NavbarProps) {
     const sidebarRef = useRef<HTMLDivElement | null>(null);
     const firstFocusableRef = useRef<HTMLButtonElement | null>(null);
     const { scrollYProgress } = useScroll();
-
-
+    const { user, logout } = useAuth();
+    const { theme, toggleTheme } = useTheme();
     // Lock body scroll while open
     useEffect(() => {
         let focusTimer: number | undefined;
@@ -105,17 +109,50 @@ export default function Navbar({ className = "" }: NavbarProps) {
 
                     {/* Right cluster */}
                     <div className="flex items-center gap-3 md:gap-4 font-bold text-black">
-
-                        <Link to="/register">
-                            <motion.div
-                                whileHover={{ y: -2 }}
-                                whileTap={{ scale: 0.985 }}
-                                className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm"
-                                style={{ "--accent": "#d9a85a", "--bg": "#2b1630" } as React.CSSProperties}
-                            >
-                                Register
-                            </motion.div>
-                        </Link>
+                        {user ? (
+                            <>
+                                <button 
+                                    onClick={toggleTheme}
+                                    className="p-2 rounded-full hover:bg-black/10 transition-colors"
+                                    aria-label="Toggle Theme"
+                                >
+                                    {theme === 'dark' ? <Sun size={20} className="text-white" /> : <Moon size={20} className="text-slate-800" />}
+                                </button>
+                                <Link to={user.role === 'admin' ? '/admin' : '/dashboard'}>
+                                    <motion.div
+                                        whileHover={{ y: -2 }}
+                                        whileTap={{ scale: 0.985 }}
+                                        className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm"
+                                        style={{ "--accent": "#d9a85a", "--bg": "#2b1630" } as React.CSSProperties}
+                                    >
+                                        Dashboard
+                                    </motion.div>
+                                </Link>
+                            </>
+                        ) : (
+                            <>
+                                <Link to="/login">
+                                    <motion.div
+                                        whileHover={{ y: -2 }}
+                                        whileTap={{ scale: 0.985 }}
+                                        className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm hidden sm:inline-flex"
+                                        style={{ "--accent": "#d9a85a", "--bg": "#2b1630" } as React.CSSProperties}
+                                    >
+                                        Login
+                                    </motion.div>
+                                </Link>
+                                <Link to="/register">
+                                    <motion.div
+                                        whileHover={{ y: -2 }}
+                                        whileTap={{ scale: 0.985 }}
+                                        className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm"
+                                        style={{ "--accent": "#d9a85a", "--bg": "#2b1630", "backgroundColor": "#2b1630", "color": "#d9a85a" } as React.CSSProperties}
+                                    >
+                                        Register
+                                    </motion.div>
+                                </Link>
+                            </>
+                        )}
 
                         {/* menu button visible on all sizes, but changes layout */}
                         <IconBtn as="button" label="Menu" onClick={openMenu} className="h-9 w-9 cursor-pointer">
@@ -191,17 +228,52 @@ export default function Navbar({ className = "" }: NavbarProps) {
                             <Link to="/contact" className="rounded-md px-3 py-2 hover:bg-white/5">Contact</Link>
                         </nav>
 
-
-                        <Link to="/register">
-                            <motion.div
-                                whileHover={{ y: -2 }}
-                                whileTap={{ scale: 0.985 }}
-                                className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 my-5 text-sm"
-                                style={{ "--accent": "#d9a85a", "--bg": "#2b1630" } as React.CSSProperties}
-                            >
-                                Register
-                            </motion.div>
-                        </Link>
+                        {user ? (
+                            <div className="flex flex-col gap-3 mt-4">
+                                <Link to={user.role === 'admin' ? '/admin' : '/dashboard'}>
+                                    <motion.div
+                                        whileHover={{ y: -2 }}
+                                        whileTap={{ scale: 0.985 }}
+                                        className="inline-flex items-center justify-center w-full gap-2 rounded-full border px-4 py-2 text-sm"
+                                        style={{ "--accent": "#d9a85a", "--bg": "#2b1630", "backgroundColor": "#2b1630", "color": "#d9a85a" } as React.CSSProperties}
+                                    >
+                                        Go to Dashboard
+                                    </motion.div>
+                                </Link>
+                                <button
+                                    onClick={() => {
+                                        logout();
+                                        close();
+                                    }}
+                                    className="rounded-md px-3 py-2 hover:bg-white/5 text-left text-red-200"
+                                >
+                                    Logout
+                                </button>
+                            </div>
+                        ) : (
+                            <div className="flex flex-col gap-3 mt-4">
+                                <Link to="/login" onClick={close}>
+                                    <motion.div
+                                        whileHover={{ y: -2 }}
+                                        whileTap={{ scale: 0.985 }}
+                                        className="inline-flex items-center justify-center w-full gap-2 rounded-full border px-4 py-2 text-sm"
+                                        style={{ "--accent": "#d9a85a", "--bg": "#2b1630" } as React.CSSProperties}
+                                    >
+                                        Login
+                                    </motion.div>
+                                </Link>
+                                <Link to="/register" onClick={close}>
+                                    <motion.div
+                                        whileHover={{ y: -2 }}
+                                        whileTap={{ scale: 0.985 }}
+                                        className="inline-flex items-center justify-center w-full gap-2 rounded-full border px-4 py-2 text-sm"
+                                        style={{ "--accent": "#d9a85a", "--bg": "#2b1630", "backgroundColor": "#2b1630", "color": "#d9a85a" } as React.CSSProperties}
+                                    >
+                                        Register
+                                    </motion.div>
+                                </Link>
+                            </div>
+                        )}
 
                         <div className="mt-6 flex gap-3">
                             <IconBtn as="a" href="https://www.facebook.com/rsd.rns/" label="Facebook">

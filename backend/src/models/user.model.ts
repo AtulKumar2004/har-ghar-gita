@@ -4,8 +4,12 @@ export interface UserDocument extends Document {
   _id: mongoose.Types.ObjectId,
   name: String;
   email: String;
+  password?: String;
   dob: Date;
   phone: Number;
+  role: 'student' | 'admin';
+  resetPasswordToken?: String;
+  resetPasswordExpires?: Date;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -20,6 +24,10 @@ const userSchema = new Schema<UserDocument>({
         required: true,
         unique: true
     },
+    password: {
+        type: String,
+        required: false, // temporarily false to not break old users
+    },
     dob: {
         type: Date,
         required: true
@@ -28,6 +36,19 @@ const userSchema = new Schema<UserDocument>({
         type: Number,
         required: true,
         unique: true
+    },
+    role: {
+        type: String,
+        enum: ['student', 'admin'],
+        default: 'student'
+    },
+    resetPasswordToken: {
+        type: String,
+        required: false
+    },
+    resetPasswordExpires: {
+        type: Date,
+        required: false
     }
 },{timestamps: true});
 

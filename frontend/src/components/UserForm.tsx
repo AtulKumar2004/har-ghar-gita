@@ -9,6 +9,7 @@ import { Loader2 } from "lucide-react";
 interface FormData {
     name: string;
     email: string;
+    password?: string;
     dob: string;
     phone: string;
 }
@@ -16,6 +17,7 @@ interface FormData {
 export const userSchema = z.object({
     name: z.string().min(1, "All fields are required"),
     email: z.string().email("Please enter a valid email"),
+    password: z.string().min(6, "Password must be at least 6 characters"),
     dob: z.string().min(1, "All fields are required"),
     phone: z
         .string()
@@ -38,10 +40,12 @@ const UserForm: React.FC = () => {
     const [formData, setFormData] = useState<FormData>({
         name: "",
         email: "",
+        password: "",
         dob: "",
         phone: "",
     });
     const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement>
@@ -65,8 +69,8 @@ const UserForm: React.FC = () => {
         try {
             // const res = await axios.post(`${import.meta.env.VITE_API_URL}/register`, result.data);
             const res = await axios.post("/api/register", result.data);
-            toast.success("Registration successful 🎉");
-            setFormData({ name: "", email: "", dob: "", phone: "" });
+            toast.success("Registration successful 🎉 Please login.");
+            setFormData({ name: "", email: "", password: "", dob: "", phone: "" });
             console.log("User created:", res.data);
         } catch (error: any) {
             if (error.response) {
@@ -110,7 +114,7 @@ const UserForm: React.FC = () => {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 placeholder-gray-400"
                     />
                 </div>
 
@@ -123,7 +127,7 @@ const UserForm: React.FC = () => {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 placeholder-gray-400"
                     />
                 </div>
 
@@ -136,8 +140,34 @@ const UserForm: React.FC = () => {
                         value={formData.dob}
                         onChange={handleChange}
                         required
-                        className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 placeholder-gray-400"
                     />
+                </div>
+
+                {/* Password */}
+                <div>
+                    <label className="block text-gray-700 mb-2">Password</label>
+                    <div className="relative">
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            required
+                            className="w-full border rounded-lg px-4 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 placeholder-gray-400"
+                        />
+                        <button
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-blue-600"
+                        >
+                            {showPassword ? (
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                            ) : (
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                            )}
+                        </button>
+                    </div>
                 </div>
 
                 {/* Phone */}
@@ -149,7 +179,7 @@ const UserForm: React.FC = () => {
                         value={formData.phone}
                         onChange={handleChange}
                         required
-                        className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 placeholder-gray-400"
                     />
                 </div>
 
