@@ -9,7 +9,7 @@ import {
     Sun,
     Moon
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
 
@@ -54,6 +54,9 @@ export default function Navbar({ className = "" }: NavbarProps) {
     const { scrollYProgress } = useScroll();
     const { user, logout } = useAuth();
     const { theme, toggleTheme } = useTheme();
+    const location = useLocation();
+    const showThemeToggle = location.pathname.startsWith('/dashboard') || location.pathname.startsWith('/admin');
+
     // Lock body scroll while open
     useEffect(() => {
         let focusTimer: number | undefined;
@@ -111,13 +114,15 @@ export default function Navbar({ className = "" }: NavbarProps) {
                     <div className="flex items-center gap-3 md:gap-4 font-bold text-black">
                         {user ? (
                             <>
-                                <button 
-                                    onClick={toggleTheme}
-                                    className="p-2 rounded-full hover:bg-black/10 transition-colors"
-                                    aria-label="Toggle Theme"
-                                >
-                                    {theme === 'dark' ? <Sun size={20} className="text-white" /> : <Moon size={20} className="text-slate-800" />}
-                                </button>
+                                {showThemeToggle && (
+                                    <button 
+                                        onClick={toggleTheme}
+                                        className="p-2 rounded-full hover:bg-black/10 transition-colors"
+                                        aria-label="Toggle Theme"
+                                    >
+                                        {theme === 'dark' ? <Sun size={20} className="text-white" /> : <Moon size={20} className="text-slate-800" />}
+                                    </button>
+                                )}
                                 <Link to={user.role === 'admin' ? '/admin' : '/dashboard'}>
                                     <motion.div
                                         whileHover={{ y: -2 }}
