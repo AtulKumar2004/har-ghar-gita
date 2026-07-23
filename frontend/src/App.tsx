@@ -11,6 +11,7 @@ import AdminUsers from './pages/admin/AdminUsers';
 import AdminBooks from './pages/admin/AdminBooks';
 import AdminBookDetail from './pages/admin/AdminBookDetail';
 import AdminChapterDetail from './pages/admin/AdminChapterDetail';
+import PublicRoute from './components/PublicRoute';
 
 import BookView from './pages/BookView';
 import QuizView from './pages/QuizView';
@@ -34,10 +35,12 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
 
-        {/* Public Views */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password/:token" element={<ResetPassword />} />
+        {/* Public Views (Cannot be accessed by logged-in users) */}
+        <Route element={<PublicRoute />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
+        </Route>
         <Route path="/books/:bookId" element={<BookView />} />
         <Route path="/chapters/:chapterId/quiz" element={<QuizView />} />
 

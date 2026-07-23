@@ -14,10 +14,7 @@ const Login = () => {
   const { user, login } = useAuth();
 
   React.useEffect(() => {
-    if (user) {
-      if (user.role === 'admin') navigate('/admin');
-      else navigate('/dashboard');
-    }
+    // No explicit redirect needed here, App.tsx PublicRoute handles it
   }, [user, navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -27,7 +24,7 @@ const Login = () => {
       const res = await axios.post('/api/login', { email, password });
       login(res.data);
       toast.success('Logged in successfully!');
-      
+
       if (res.data.role === 'admin') {
         navigate('/admin');
       } else {
