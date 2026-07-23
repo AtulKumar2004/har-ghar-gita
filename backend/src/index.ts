@@ -132,6 +132,21 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
+app.get("/api/auth/me", protect, async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 app.post("/api/forgot-password", async (req, res) => {
   const { email, phone } = req.body;
   try {
@@ -273,9 +288,18 @@ app.put("/api/books/:id", async (req, res) => {
 
 app.delete("/api/books/:id", async (req, res) => {
   try {
-    const book = await Book.findByIdAndDelete(req.params.id);
+    const bookId = req.params.id;
+    const book = await Book.findById(bookId);
     if (!book) return res.status(404).json({ message: "Book not found" });
-    res.status(200).json({ message: "Book deleted" });
+
+    const chapters = await Chapter.find({ bookId });
+    const chapterIds = chapters.map((ch) => ch._id);
+
+    await Question.deleteMany({ chapterId: { $in: chapterIds } });
+    await Chapter.deleteMany({ bookId });
+    await Book.findByIdAndDelete(bookId);
+
+    res.status(200).json({ message: "Book and its associated chapters and questions deleted" });
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error" });
   }
@@ -325,9 +349,14 @@ app.put("/api/chapters/:id", async (req, res) => {
 
 app.delete("/api/chapters/:id", async (req, res) => {
   try {
-    const chapter = await Chapter.findByIdAndDelete(req.params.id);
+    const chapterId = req.params.id;
+    const chapter = await Chapter.findById(chapterId);
     if (!chapter) return res.status(404).json({ message: "Chapter not found" });
-    res.status(200).json({ message: "Chapter deleted" });
+
+    await Question.deleteMany({ chapterId });
+    await Chapter.findByIdAndDelete(chapterId);
+
+    res.status(200).json({ message: "Chapter and its associated questions deleted" });
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error" });
   }

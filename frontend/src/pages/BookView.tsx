@@ -26,8 +26,8 @@ const BookView = () => {
     const fetchData = async () => {
       try {
         const [bookRes, chaptersRes] = await Promise.all([
-          axios.get(`http://localhost:5000/api/books/${bookId}`),
-          axios.get(`http://localhost:5000/api/books/${bookId}/chapters`)
+          axios.get(`/api/books/${bookId}`),
+          axios.get(`/api/books/${bookId}/chapters`)
         ]);
         setBook(bookRes.data);
         setChapters(chaptersRes.data);

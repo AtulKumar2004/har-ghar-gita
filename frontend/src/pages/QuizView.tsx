@@ -27,8 +27,8 @@ const QuizView = () => {
     const fetchData = async () => {
       try {
         const [chapterRes, questionsRes] = await Promise.all([
-          axios.get(`http://localhost:5000/api/chapters/${chapterId}`),
-          axios.get(`http://localhost:5000/api/chapters/${chapterId}/questions`)
+          axios.get(`/api/chapters/${chapterId}`),
+          axios.get(`/api/chapters/${chapterId}/questions`)
         ]);
         setChapter(chapterRes.data);
         setQuestions(questionsRes.data);

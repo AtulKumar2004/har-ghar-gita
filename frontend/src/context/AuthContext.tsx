@@ -44,6 +44,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     delete axios.defaults.headers.common['Authorization'];
   };
 
+  useEffect(() => {
+    const verifyUser = async () => {
+      if (user?.token) {
+        try {
+          const res = await axios.get('/api/auth/me');
+          if (res.data.role !== user.role || res.data.name !== user.name) {
+            const updatedUser = { ...user, ...res.data };
+            setUser(updatedUser);
+            localStorage.setItem('user', JSON.stringify(updatedUser));
+          }
+        } catch (error) {
+          logout();
+        }
+      }
+    };
+    verifyUser();
+  }, []);
+
   return (
     <AuthContext.Provider value={{ user, login, logout }}>
       {children}
