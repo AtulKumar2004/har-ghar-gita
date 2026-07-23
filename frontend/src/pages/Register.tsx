@@ -11,12 +11,7 @@ const Register = () => {
     const { user } = useAuth();
     const navigate = useNavigate();
 
-    React.useEffect(() => {
-        if (user) {
-            if (user.role === 'admin') navigate('/admin');
-            else navigate('/dashboard');
-        }
-    }, [user, navigate]);
+    // Removed redirect here so logged-in users can access the registration page
     return (
         <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
