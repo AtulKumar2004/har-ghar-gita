@@ -102,7 +102,10 @@ const AdminBookDetail = () => {
         </button>
         <div>
           <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">{book.title}</h1>
-          <p className="text-gray-500 dark:text-gray-400 text-sm">Manage Chapters</p>
+          <p className="text-gray-500 dark:text-gray-400 text-sm mb-2">Manage Chapters</p>
+          {book.description && (
+            <p className="text-gray-600 dark:text-gray-400 text-sm max-w-3xl">{book.description}</p>
+          )}
         </div>
       </div>
 
